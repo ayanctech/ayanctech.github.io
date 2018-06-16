@@ -18,30 +18,6 @@
 }
 
 
-/* Project laughtbox setup */
-
-.fancybox-item.fancybox-close {
-    background: url("../img/icons/close.png") no-repeat scroll 0 0 transparent;
-    height: 50px;
-    right: 0;
-    top: 0;
-    width: 50px;
-}
-
-.fancybox-next span {
-    background: url("../img/right.png") no-repeat scroll center center #009ee3;
-    height: 50px;
-    width: 50px;
-    right: 0;
-}
-
-.fancybox-prev span {
-    background: url("../img/left.png") no-repeat scroll center center #009ee3;
-    height: 50px;
-    width: 50px;
-    left: 0;
-}
-
 
 /*=================================================================
 	Portfolio
@@ -235,14 +211,7 @@ ul.external li a:hover {
         padding: 15px;
     }
 
-/* lightbox */
-    .fancybox-title h3 {
-        font-size: 20px;
-    }
 
-    .fancybox-title p {
-        font-size: 14px;
-    }
 
 
 

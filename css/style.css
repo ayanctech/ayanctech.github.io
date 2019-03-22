@@ -1,4 +1,4 @@
-
+<meta name="author" content="AYAN CHOWDHURY"><meta name="author" content="AYAN CHOWDHURY"><meta name="author" content="AYAN CHOWDHURY"><meta name="author" content="AYAN CHOWDHURY"><meta name="author" content="AYAN CHOWDHURY"><meta name="author" content="AYAN CHOWDHURY">
 /*
   Theme Name: Folio
   Theme URL: https://bootstrapmade.com/folio-bootstrap-portfolio-template/
@@ -281,10 +281,10 @@ nav ul li a {
 /*-----------------------------------------------------------------------------------*/
 
 #header {
-  background: url("../images/bgim.jpg") center fixed;
+  background: url("../images/port.jpg") fixed;
   background-size:cover;
   
-  height: 100vh;
+  height: auto;
   width: 100%;
 }
 
@@ -363,6 +363,22 @@ nav ul li a {
   text-align: left;
 }
 
+.dwnld {
+  background-color: #4CAF50;
+  border: none;
+  color: #fff;
+  padding: 15px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius:25px;
+}
+.dwnld:hover{
+	box-shadow:5px 10px 18px #888888;
+}
 /*-----------------------------------------------------------------------------------*/
 /*   Skills
 /*-----------------------------------------------------------------------------------*/

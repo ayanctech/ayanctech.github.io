@@ -119,7 +119,7 @@ p {
   background: #2098d1;
   border: medium none;
   border-radius: 0;
-  color: #fff;
+  color: #fff !important;
   font-size: 12px;
   height: 50px;
   line-height: 50px;
@@ -281,9 +281,9 @@ nav ul li a {
 /*-----------------------------------------------------------------------------------*/
 
 #header {
-  background: url("../images/port2.jpg") fixed;
+  background: url("../images/port2.jpg");
   background-size:cover;
-  
+
   height: auto;
   width: 100%;
 }
@@ -366,7 +366,7 @@ nav ul li a {
 .dwnld {
   background-color: #4CAF50;
   border: none;
-  color: #fff;
+  color: #c02537 !important;
   padding: 15px 26px;
   text-align: center;
   text-decoration: none;

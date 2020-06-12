@@ -21,11 +21,12 @@ fieldset {
 }
 
 .section-space-padding {
-    padding: 100px 0px;
+    padding: 10px 0px;
 }
 
 .section-title {
     text-align: center;
+    margin-top: 25px;
 }
 
 .section-title h2 {

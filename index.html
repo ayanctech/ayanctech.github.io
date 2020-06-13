@@ -32,12 +32,12 @@
     <link rel="stylesheet" type="text/css" href="css/services_css/plugin.css" />
 
     <!-- Stylesheets -->
-    <link
+    <!-- <link
       href="css/style/global.css"
       type="text/css"
       rel="stylesheet"
       media="all"
-    />
+    /> -->
     <link rel="stylesheet" type="text/css" href="css/services_css/style.css" />
 
     <!-- Google Fonts -->
@@ -55,6 +55,8 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
 
     <link href="lib/hover/hover.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/grt-youtube-popup.css">
 
     <!-- Main Stylesheet File -->
     <link href="css/style.css" rel="stylesheet" />
@@ -312,7 +314,7 @@
                     </figcaption>
                     <ul class="external">
                       <li>
-                        <a href="https://youtu.be/Erkm9M1Coo4" target="blank"
+                        <a class="youtube-link"  youtubeid="Erkm9M1Coo4"
                           ><i class="fab fa-youtube"></i
                         ></a>
                       </li>
@@ -340,9 +342,9 @@
                     </figcaption>
                     <ul class="external">
                       <li>
-                        <a a href="https://youtu.be/Erkm9M1Coo4" target="blank"
-                          ><i class="fab fa-youtube"></i
-                        ></a>
+                        <a class="youtube-link"  youtubeid="jncQ8jPFqTM">
+                          <i class="fab fa-youtube"></i>
+                        </a>
                       </li>
                       <li>
                         <a
@@ -393,9 +395,10 @@
                     </figcaption>
                     <ul class="external">
                       <li>
-                        <a href="https://www.youtube.com/watch?v=OUBiaTeD-48"
-                          ><i class="fab fa-youtube"></i
-                        ></a>
+                        <!-- <span class="youtube-link" youtubeid="OUBiaTeD-48">Open Video</span> data-link="https://www.youtube.com/embed/OUBiaTeD-48" -->
+                        <a class="youtube-link"  youtubeid="OUBiaTeD-48"
+                          ><i class="fab fa-youtube"></i>
+                      </a>
                       </li>
                       <li>
                         <a
@@ -661,8 +664,9 @@
     <script src="lib/magnific-popup/magnific-popup.min.js"></script>
     <script src="lib/isotope/isotope.pkgd.min.js"></script>
 
-    <!-- Contact Form JavaScript File -->
-    <script src="contactform/contactform.js"></script>
+    <script src="js/grt-youtube-popup.js"></script>
+
+    <script> $(".youtube-link").grtyoutube(); </script>
 
     <!-- Template Main Javascript File -->
     <script src="js/main.js"></script>

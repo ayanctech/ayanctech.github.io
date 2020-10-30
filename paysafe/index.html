@@ -1,0 +1,177 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://hosted.paysafe.com/checkout/v2/paysafe.checkout.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+</head>
+
+<body class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">Paysafe Card Checkout</h1>
+    <p class="lead">This is a simple Project for demonstrating Paysafe Card Checkout</p>
+    <hr class="my-4">
+  </div>
+
+  <form>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputUserName">Username</label>
+        <input type="text" class="form-control" id="inputUserName" placeholder="Username" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email" required>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputAddress">Street</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputAddress2">Street 2</label>
+        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputCountry">Country Code</label>
+        <input type="text" class="form-control" id="inputCountry" placeholder="Country(e.g US)" required>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputState">State</label>
+        <input type="text" class="form-control" id="inputState" placeholder="State(e.g CA)" required>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputCity">City</label>
+        <input type="text" class="form-control" id="inputCity" placeholder="City(e.g Cupertino)" required>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputZip">Zip</label>
+        <input type="number" class="form-control" id="inputZip" placeholder="Zip(e.g 59014)" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputAmount">Amount(in USD $)</label>
+        <input type="number" class="form-control" id="inputAmount" placeholder="Pay Amount" required>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" onclick="checkout()">Pay</button>
+  </form>
+
+  <script>
+    let refNum = "ROIIM" + Math.floor(Math.random() * 10000);
+
+    function checkout() {
+      console.log(parseInt(document.getElementById('inputAmount').value))
+      console.log(document.getElementById('inputUserName').value)
+      console.log(document.getElementById('inputEmail').value)
+      console.log(parseInt(document.getElementById('inputZip').value))
+      paysafe.checkout.setup("cHVibGljLTc3NTE6Qi1xYTItMC01ZjAzMWNiZS0wLTMwMmQwMjE1MDA4OTBlZjI2MjI5NjU2M2FjY2QxY2I0YWFiNzkwMzIzZDJmZDU3MGQzMDIxNDUxMGJjZGFjZGFhNGYwM2Y1OTQ3N2VlZjEzZjJhZjVhZDEzZTMwNDQ=", {
+        "currency": "USD",
+        "amount": parseInt(document.getElementById('inputAmount').value)*100,
+        "locale": "en_US",
+        "customer": {
+          "firstName": document.getElementById('inputUserName').value,
+          "lastName": "Dee",
+          "email": document.getElementById('inputEmail').value,
+          "phone": "1234567890",
+          "dateOfBirth": {
+            "day": 1,
+            "month": 7,
+            "year": 1990
+          }
+        },
+        "billingAddress": {
+          "nickName": document.getElementById('inputUserName').value,
+          "street": document.getElementById('inputAddress').value,
+          "street2": document.getElementById('inputAddress2').value,
+          "city": document.getElementById('inputCity').value,
+          "zip": document.getElementById('inputZip').value,
+          "country": document.getElementById('inputCountry').value,
+          "state": document.getElementById('inputState').value
+        },
+        "environment": "TEST",
+        "merchantRefNum": refNum,
+        "canEditAmount": false,
+        "merchantDescriptor": {
+          "dynamicDescriptor": "XYZ",
+          "phone": "1234567890"
+        },
+        "displayPaymentMethods": ["card"],
+        "singleUseCustomerToken": "",
+        "paymentMethodDetails": {
+          "paysafecard": {
+            "consumerId": "1232323"
+          },
+          "paysafecash": {
+            "consumerId": "123456"
+          },
+          "sightline": {
+            "consumerId": "123456",
+            "SSN": "123456789",
+            "last4ssn": "6789",
+            "accountId": "1009688222"
+          },
+          "vippreferred": {
+            "consumerId": "550726575",
+            "accountId": "1679688456"
+          }
+        }
+      }, function (instance, error, result) {
+        if (result && result.paymentHandleToken) {
+          console.log(result.paymentHandleToken);
+          let body = JSON.stringify({ "merchantRefNum": refNum, "merchantCustomerId": "roiim1001", "amount": parseInt(document.getElementById('inputAmount').value)*100, "currencyCode": "USD", "paymentHandleToken": result.paymentHandleToken, "description": "ROIIIM Paysafe card pay" })
+        
+          $.ajax({
+            url: 'https://roiimpaysafe.gigalixirapp.com/payment',
+            type: 'post',
+            data: body,
+            contentType: 'application/json',
+            success: function (res) {
+              console.log(res)
+              console.log("success_msg" in res)
+              if ("success_msg" in res) {
+                instance.showSuccessScreen("Payment completed Successfully");
+                setTimeout(function () { instance.close(); }, 5000);
+                setTimeout(function () { location.reload(); }, 1000);
+              }
+              else {
+                instance.showFailureScreen("Payment wasn't succesful, please try again");
+                setTimeout(function () { instance.close(); }, 5000);
+                setTimeout(function () { location.reload(); }, 1000);
+              }
+            },
+          });
+
+        } else {
+          console.error(error);
+        }
+      }, function (stage, expired) {
+        switch (stage) {
+          case "PAYMENT_HANDLE_NOT_CREATED": // Handle the scenario
+          case "PAYMENT_HANDLE_CREATED": // Handle the scenario
+          case "PAYMENT_HANDLE_REDIRECT": // Handle the scenario
+          case "PAYMENT_HANDLE_PAYABLE": // Handle the scenario
+          default: // Handle the scenario
+        }
+      });
+
+    }
+  </script>
+</body>
+
+</html>

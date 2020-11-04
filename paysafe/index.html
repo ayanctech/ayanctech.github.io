@@ -69,12 +69,16 @@
         <input type="number" class="form-control" id="inputAmount" placeholder="Pay Amount" required>
       </div>
     </div>
-    <button type="button" class="btn btn-primary" onclick="checkout()">Pay</button>
+    <button type="submit" class="btn btn-primary" onclick="activatePay()" id="confirmPay">Review</button>
   </form>
-
+  <button type="button" class="btn btn-primary" onclick="checkout()" style="display: none;" id="pay">Pay</button>
   <script>
     let refNum = "ROIIM" + Math.floor(Math.random() * 10000);
-
+    $(document).ready(function () {
+      $("#confirmPay").click(function () {
+        $("pay").show();
+      });
+    });
     function checkout() {
       console.log(parseInt(document.getElementById('inputAmount').value))
       console.log(document.getElementById('inputUserName').value)
@@ -82,7 +86,7 @@
       console.log(parseInt(document.getElementById('inputZip').value))
       paysafe.checkout.setup("cHVibGljLTc3NTE6Qi1xYTItMC01ZjAzMWNiZS0wLTMwMmQwMjE1MDA4OTBlZjI2MjI5NjU2M2FjY2QxY2I0YWFiNzkwMzIzZDJmZDU3MGQzMDIxNDUxMGJjZGFjZGFhNGYwM2Y1OTQ3N2VlZjEzZjJhZjVhZDEzZTMwNDQ=", {
         "currency": "USD",
-        "amount": parseInt(document.getElementById('inputAmount').value)*100,
+        "amount": parseInt(document.getElementById('inputAmount').value) * 100,
         "locale": "en_US",
         "customer": {
           "firstName": document.getElementById('inputUserName').value,
@@ -134,8 +138,8 @@
       }, function (instance, error, result) {
         if (result && result.paymentHandleToken) {
           console.log(result.paymentHandleToken);
-          let body = JSON.stringify({ "merchantRefNum": refNum, "merchantCustomerId": "roiim1001", "amount": parseInt(document.getElementById('inputAmount').value)*100, "currencyCode": "USD", "paymentHandleToken": result.paymentHandleToken, "description": "ROIIIM Paysafe card pay" })
-        
+          let body = JSON.stringify({ "merchantRefNum": refNum, "merchantCustomerId": "roiim1001", "amount": parseInt(document.getElementById('inputAmount').value) * 100, "currencyCode": "USD", "paymentHandleToken": result.paymentHandleToken, "description": "ROIIIM Paysafe card pay" })
+
           $.ajax({
             url: 'https://roiimpaysafe.gigalixirapp.com/payment',
             type: 'post',

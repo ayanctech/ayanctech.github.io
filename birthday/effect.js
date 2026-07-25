@@ -4,18 +4,22 @@ $(window).load(function(){
 });
 $(document).ready(function(){
 		var vw;
-		$(window).resize(function(){
-			 vw = $(window).width()/2;
-			$('#b1,#b2,#b3,#b4,#b5,#b6,#b7,#b8').stop();
-			$('#b11').animate({top:240, left: vw-350},500);
-			$('#b22').animate({top:240, left: vw-250},500);
-			$('#b33').animate({top:240, left: vw-150},500);
-			$('#b44').animate({top:240, left: vw-50},500);
-			$('#b55').animate({top:240, left: vw+50},500);
-			$('#b66').animate({top:240, left: vw+150},500);
-			$('#b77').animate({top:240, left: vw+250},500);
-			$('#b88').animate({top:240, left: vw+250},500);
-		});
+		function centerBalloons() {
+			var windowWidth = $(window).width();
+			var balloonWidth = $('.balloons').first().outerWidth() || 100;
+			var spacing = Math.min(80, Math.max(20, Math.floor((windowWidth - balloonWidth) / 6)));
+			var totalWidth = balloonWidth + 4 * spacing;
+			var startLeft = Math.max(10, Math.round((windowWidth - totalWidth) / 2));
+			$('#b1,#b2,#b3,#b4,#b5').stop();
+			$('#b1').animate({top:240, left: startLeft},500);
+			$('#b2').animate({top:240, left: startLeft + spacing},500);
+			$('#b3').animate({top:240, left: startLeft + spacing * 2},500);
+			$('#b4').animate({top:240, left: startLeft + spacing * 3},500);
+			$('#b5').animate({top:240, left: startLeft + spacing * 4},500);
+		}
+
+		$(window).resize(centerBalloons);
+		centerBalloons();
 
 	$('#turn_on').click(function(){
 		$('#bulb_yellow').addClass('bulb-glow-yellow');
@@ -109,6 +113,7 @@ $(document).ready(function(){
 	}
 
 	$('#balloons_flying').click(function(){
+		$('.balloons').fadeIn('slow');
 		$('.balloon-border').animate({top:-500},8000);
 		$('#b1,#b3,#b5').addClass('balloons-rotate-behaviour-one');
 		$('#b2,#b4').addClass('balloons-rotate-behaviour-two');

@@ -1168,6 +1168,7 @@ audio {
 }
 
 .balloons {
+	display: none;
 	position: fixed;
 	bottom: -200px;
 	opacity: 0.6;

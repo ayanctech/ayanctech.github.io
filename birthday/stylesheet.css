@@ -1273,6 +1273,7 @@ audio {
 .message {
 	margin-top: 200px;
 	display: none;
+	text-align: center;
 }
 .message p {
 	font-family: 'Signika', sans-serif;
@@ -1282,6 +1283,8 @@ audio {
 	text-shadow: 2px 2px 2px #FFF;
 	display: none;
 	font-weight: bold;
+	text-align: center;
+	margin: 0 auto;
 }
 
 .btn-primary {

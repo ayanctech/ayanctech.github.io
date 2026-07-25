@@ -25,7 +25,7 @@ $(document).ready(function(){
 		$('#bulb_pink').addClass('bulb-glow-pink');
 		$('#bulb_orange').addClass('bulb-glow-orange');
 		$('body').addClass('peach');
-		$(this).fadeOut('slow').delay(5000).promise().done(function(){
+		$(this).fadeOut('slow').delay(2000).promise().done(function(){
 			$('#play').fadeIn('slow');
 		});
 	});
@@ -40,50 +40,70 @@ $(document).ready(function(){
 		$('#bulb_orange').addClass('bulb-glow-orange-after');
 		$('body').css('backgroud-color','#FFF');
 		$('body').addClass('peach-after');
-		$(this).fadeOut('slow').delay(6000).promise().done(function(){
+		$(this).fadeOut('slow', function(){
 			$('#bannar_coming').fadeIn('slow');
 		});
 	});
 
 	$('#bannar_coming').click(function(){
 		$('.bannar').addClass('bannar-come');
-		$(this).fadeOut('slow').delay(6000).promise().done(function(){
+		$(this).fadeOut('slow').delay(2500).promise().done(function(){
 			$('#balloons_flying').fadeIn('slow');
 		});
 	});
 
+	function getBalloonBounds() {
+		var balloonWidth = 100;
+		var balloonHeight = 180;
+		var maxLeft = Math.max(0, $(window).width() - balloonWidth - 20);
+		var maxBottom = Math.max(0, $(window).height() - balloonHeight - 20);
+		return {left: maxLeft, bottom: maxBottom};
+	}
+
+	function randomBalloonPosition() {
+		var bounds = getBalloonBounds();
+		return {
+			left: Math.floor(bounds.left * Math.random()),
+			bottom: Math.floor(bounds.bottom * Math.random())
+		};
+	}
+
+	function curtainClose() {
+		var audio = $('.song')[0];
+		if (audio) {
+			audio.pause();
+			audio.currentTime = 0;
+		}
+		$('.curtain').addClass('visible');
+	}
+
 	function loopOne() {
-		var randleft = 1000*Math.random();
-		var randtop = 500*Math.random();
-		$('#b1').animate({left:randleft,bottom:randtop},10000,function(){
+		var pos = randomBalloonPosition();
+		$('#b1').animate({left:pos.left,bottom:pos.bottom},10000,function(){
 			loopOne();
 		});
 	}
 	function loopTwo() {
-		var randleft = 1000*Math.random();
-		var randtop = 500*Math.random();
-		$('#b2').animate({left:randleft,bottom:randtop},10000,function(){
+		var pos = randomBalloonPosition();
+		$('#b2').animate({left:pos.left,bottom:pos.bottom},10000,function(){
 			loopTwo();
 		});
 	}
 	function loopThree() {
-		var randleft = 1000*Math.random();
-		var randtop = 500*Math.random();
-		$('#b3').animate({left:randleft,bottom:randtop},10000,function(){
+		var pos = randomBalloonPosition();
+		$('#b3').animate({left:pos.left,bottom:pos.bottom},10000,function(){
 			loopThree();
 		});
 	}
 	function loopFour() {
-		var randleft = 1000*Math.random();
-		var randtop = 500*Math.random();
-		$('#b4').animate({left:randleft,bottom:randtop},10000,function(){
+		var pos = randomBalloonPosition();
+		$('#b4').animate({left:pos.left,bottom:pos.bottom},10000,function(){
 			loopFour();
 		});
 	}
 	function loopFive() {
-		var randleft = 1000*Math.random();
-		var randtop = 500*Math.random();
-		$('#b5').animate({left:randleft,bottom:randtop},10000,function(){
+		var pos = randomBalloonPosition();
+		$('#b5').animate({left:pos.left,bottom:pos.bottom},10000,function(){
 			loopFive();
 		});
 	}
@@ -119,7 +139,12 @@ $(document).ready(function(){
 
 		
 	$('#wish_message').click(function(){
-		 vw = $(window).width()/2;
+		var vw = $(window).width()/2;
+		var balloonWidth = $('.balloons').first().outerWidth() || 100;
+		var offset = Math.min(90, Math.max(50, vw/6));
+		var groupWidth = balloonWidth + 4 * offset;
+		var startLeft = Math.max(10, vw - groupWidth / 2);
+		var topPosition = Math.min(340, $(window).height() - 260);
 
 		$('#b1,#b2,#b3,#b4,#b5').stop();
 		$('#b1').attr('id','b11');
@@ -127,13 +152,14 @@ $(document).ready(function(){
 		$('#b3').attr('id','b33')
 		$('#b4').attr('id','b44')
 		$('#b5').attr('id','b55')
-		$('#b11').animate({top:240, left: vw-200},500);
-		$('#b22').animate({top:240, left: vw-100},500);
-		$('#b33').animate({top:240, left: vw},500);
-		$('#b44').animate({top:240, left: vw+100},500);
-		$('#b55').animate({top:240, left: vw+200},500);
+		$('#b11').animate({top:topPosition, left: startLeft},500);
+		$('#b22').animate({top:topPosition, left: startLeft + offset},500);
+		$('#b33').animate({top:topPosition, left: startLeft + offset*2},500);
+		$('#b44').animate({top:topPosition, left: startLeft + offset*3},500);
+		$('#b55').animate({top:topPosition, left: startLeft + offset*4},500);
 		$('.balloons').css('opacity','0.9');
 		$('.balloons h2').fadeIn(3000);
+		$('#photo_gallery').fadeIn('slow');
 		$(this).fadeOut('slow').delay(3000).promise().done(function(){
 			$('#story').fadeIn('slow');
 		});
@@ -142,35 +168,21 @@ $(document).ready(function(){
 	$('#story').click(function(){
 		$(this).fadeOut('slow');
 		$('.cake').fadeOut('fast').promise().done(function(){
-			$('.message').fadeIn('slow');
-		});
-		
-		var i;
+			var $paragraphs = $('.message p');
+			$paragraphs.hide();
+			$('.message').fadeIn('slow', function() {
+				function showParagraph(index) {
+					if (index >= $paragraphs.length) {
+						curtainClose();
+						return;
+					}
+					$paragraphs.eq(index).fadeIn('slow').delay(3000).fadeOut('slow', function() {
+						showParagraph(index + 1);
+					});
+				}
 
-		function msgLoop (i) {
-			$("p:nth-child("+i+")").fadeOut('slow').delay(800).promise().done(function(){
-			i=i+1;
-			$("p:nth-child("+i+")").fadeIn('slow').delay(1000);
-			if(i==50){
-				$("p:nth-child(49)").fadeOut('slow').promise().done(function () {
-					$('.cake').fadeIn('fast');
-				});
-				
-			}
-			else{
-				msgLoop(i);
-			}			
-
+				showParagraph(0);
+			});
 		});
-			// body...
-		}
-		
-		msgLoop(0);
-		
 	});
 });
-
-
-
-
-//alert('hello');
